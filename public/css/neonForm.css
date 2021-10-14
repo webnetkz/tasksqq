@@ -1,0 +1,74 @@
+.linesOfForm {
+    --bgColorNeonBtn: #2196f3;
+    --colorNeonBtn: #333;
+    position: relative;
+    display: inline-block;
+    color: var(--bgColorNeonBtn);
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    overflow: hidden;
+    transition-duration: 200ms;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    border-radius: 5px;
+    font-weight: 500;
+}
+.linesOfForm:hover {
+    box-shadow: 0 0 1000px 1px var(--bgColorNeonBtn);
+}
+.formL {
+    position: absolute;
+    display: block
+}
+.linesOfForm:hover .formL {
+    box-shadow: 0 0 10px var(--bgColorNeonBtn), 0 0 20px var(--bgColorNeonBtn), 0 0 50px var(--bgColorNeonBtn)
+}
+.formL-t {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--bgColorNeonBtn))
+}
+.formL-t {
+    animation: oneFormL 1s infinite;
+}
+@keyframes oneFormL {
+    to {
+        left: 100%;
+        transition-duration: 1s;
+        transition-delay: 250ms
+    }
+}
+.formL-b { bottom: 0;right: -100%;width: 100%;height: 2px;background: linear-gradient(270deg, transparent, var(--bgColorNeonBtn)) }
+.formL-b { animation: twoFormL 1s 0.5s infinite; }
+@keyframes twoFormL {
+    to {
+        right: 100%;transition-duration: 1s;transition-delay: 250ms 
+    }
+}
+.formL-l {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(0deg, transparent, var(--bgColorNeonBtn))
+}
+.formL-l {
+    animation: threeFormL 1s 0.75s infinite;
+}
+@keyframes threeFormL {
+    to {
+        bottom: 100%;
+        transition-duration: 1s
+    }
+}
+.formL-r { top: -100%;right: 0;width: 2px;height: 100%;background: linear-gradient(180deg, transparent, var(--bgColorNeonBtn)) }
+.formL-r { animation: fourFormL 1s 0.25s infinite; }
+@keyframes fourFormL {
+    to {
+        top: 100%;
+        transition-duration: 1s
+    }
+}

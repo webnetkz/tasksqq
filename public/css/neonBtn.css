@@ -1,0 +1,57 @@
+.neonBtn {
+    --bgColorNeonBtn: #2196f3;
+    --colorNeonBtn: #333;
+    position: relative;
+    display: inline-block;
+    color: var(--bgColorNeonBtn);
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    overflow: hidden;
+    transition-duration: 200ms;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    border-radius: 5px;
+    font-weight: 500;
+}
+.neonBtnL {
+    position: absolute;
+    display: block
+}
+.neonBtn:hover .neonBtnL {
+    box-shadow: 0 0 10px var(--bgColorNeonBtn), 0 0 20px var(--bgColorNeonBtn), 0 0 50px var(--bgColorNeonBtn)
+}
+.neonBtnL-t {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--bgColorNeonBtn))
+}
+.neonBtn:hover .neonBtnL-t {
+    left: 100%;
+    transition-duration: 1s;
+    transition-delay: 250ms
+}
+.neonBtnL-b { bottom: 0;right: -100%;width: 100%;height: 2px;background: linear-gradient(270deg, transparent, var(--bgColorNeonBtn)) }
+.neonBtn:hover .neonBtnL-b { right: 100%;transition-duration: 1s;transition-delay: 250ms }
+.neonBtnL-l {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(0deg, transparent, var(--bgColorNeonBtn))
+}
+.neonBtn:hover .neonBtnL-l {
+    bottom: 100%;
+    transition-duration: 1s
+}
+.neonBtnL-r { top: -100%;right: 0;width: 2px;height: 100%;background: linear-gradient(180deg, transparent, var(--bgColorNeonBtn)) }
+.neonBtn:hover .neonBtnL-r { top: 100%;transition-duration: 1s }
+.neonBtn:hover {
+    transition-duration: 0.5s;
+    transition-delay: 0.5s;
+    box-shadow: 0 0 10px var(--bgColorNeonBtn), 0 0 40px var(--bgColorNeonBtn), 0 0 80px var(--bgColorNeonBtn);
+    background-color: var(--bgColorNeonBtn);
+    color: var(--colorNeonBtn)
+}
