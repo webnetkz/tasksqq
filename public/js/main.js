@@ -151,8 +151,3 @@ document.querySelector('#save').addEventListener('click', () => {
     }
 });
 updateList();
-
-function changeH1() {
-    let h1 = document.querySelector('h1');
-    console.log(h1);
-}

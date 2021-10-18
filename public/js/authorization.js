@@ -26,7 +26,7 @@ function authorization() {
                         showError('You entered an incorrect password!');
                     }
                     if(xhr.responseText == 'GOOD') {
-                        sessionStorage.setItem('user', 'true');
+                        localStorage.setItem('user', 'true');
                         location.href = '/tasks';
                     }
                 }

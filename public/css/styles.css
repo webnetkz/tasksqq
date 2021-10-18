@@ -1,15 +1,19 @@
 @import url(neonBtn.css);
 @import url(neonForm.css);
+@import url(menuTasks.css);
 @import url(calendar.css);
 * {
     margin: 0;
     padding: 0;
     transition-duration: 300ms;
     box-sizing: border-box;
+    --mainColor: #2196f3;
+    --mainBg: #333;
+    --mainColorText: rgb(163, 163, 163);
 }
 body {
     background-color: rgb(32,33,37);
-    color: rgb(200,201,205);
+    color: var(--mainColorText);
     font-family: sans-serif;
 }
 .signinBlock {
@@ -43,9 +47,11 @@ body {
     font-size: 1.1rem;
     display: block;
     margin: 10px;
+    width: calc(100% - 20px);
+    box-sizing: border-box;
 }
 .inp:focus {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 .sign {
     display: flex;
@@ -87,7 +93,7 @@ footer {
     position: fixed;
     bottom: 45px;
     left: calc(50vw - 30px);
-    color: rgb(137,180,248);
+    color: var(--mainColor);
     border: 6px solid rgb(32,33,37);
     box-shadow: 0 0 17px rgb(32,33,37);
     background-color: rgb(55,56,60);
@@ -97,12 +103,14 @@ footer {
     align-items: center;
 }
 .addBtn:active {
-    color: rgb(200,201,205);
+    color: rgb(124, 124, 124);
     text-shadow: 0 0 15px rgb(137,180,248);
     border: 6px solid rgb(137,180,248);
     box-shadow: none;
     transform: rotateZ(90deg);
 }
+
+
 h1 {
     margin: 20px 0px 20px 50px;
 }
@@ -214,6 +222,7 @@ h1 {
     color:#333;
     text-align: center;
     animation: showError 0.4s linear;
+    z-index: 999;
 }
 @keyframes showError {
     from {
@@ -228,5 +237,5 @@ h1 {
     padding: 0 10px;
 }
 hr {
-    border-color: #2196f3
+    border-color: var(--mainColor);
 }

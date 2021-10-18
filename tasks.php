@@ -35,31 +35,27 @@
     </div>
 
     <footer>
+        <span class="menuTasksBtn" onclick="showMenuTasks();">
+            <img src="/public/img/squares.png">
+        </span>
         <span class="addBtn">+</span>
     </footer>
-    <script>       
-        if(!sessionStorage.getItem('user')) {
-            location.href = '/index';
-        }
-    </script>
-    <script src="/public/js/main.js"></script>
+    <div class="menuTasks" style="left: -100vw;">
+        <h2 onclick="addNewList(this);">+ Create new list</h2>
+        <hr>
+        <div class="menuTasksList">
+            <ul>
+                <!-- <li class="menuTasksItem">menuTasksList </li>
+                <li class="menuTasksItem activeMenuTasksItem">menuTasksList</li> -->
+            </ul>
+        </div>
+    </div>
+    <div class="error" onclick="closeError(this)"></div>
+    <script src="/public/js/error.js"></script>
+    <!-- <script src="/public/js/main.js"></script> -->
+    <script src="/public/js/addNewTasks.js"></script>
     <script src="/public/js/notifications.js"></script>
     <script src="/public/js/showNotifications.js"></script>
-    <script>
-        if(!sessionStorage.getItem('h1')) {
-            sessionStorage.setItem('h1', 'Tasks');
-        }
-        let h1 = document.querySelector('h1');
-        h1.innerHTML += sessionStorage.getItem('h1') + '<span class="icon"><img src="/public/img/pencil.png" onclick="changeH1();"></span>';
-    
-        function changeH1() {
-            let task = prompt('Введите названия задачника!');
-            if(!task) { task = 'Tasks' };
-            let h1 = document.querySelector('h1');
-            sessionStorage.setItem('h1', task);
-            h1.innerHTML = task + '<span class="icon"><img src="/public/img/pencil.png" onclick="changeH1();"></span>';
-        }
-    </script> 
     <script>
         // Проверка браузера на поддержку service worker
         if('serviceWorker' in navigator) {
@@ -68,6 +64,9 @@
                 console.log("Service Worker Registered");
             });
         }
+    </script>
+    <script>
+        
     </script>
 </body>
 </html>
