@@ -4,24 +4,30 @@ window.setInterval(function(){
     // Получение списка задач
     const items = {...localStorage};
     
-        for(let i = 1; i <= Object.keys(items).length; i++) {
-            items[i] = JSON.parse(items[i]);
+    for(let i = 2; i <= Object.keys(items).length; i++) {
+        let task = 'task'+i;
+        dataTasker = JSON.parse(items[task]);
 
-            if(items[i].status) {
-                if((items[i].date !== 'null')) {
-                    if(items[i].time !== 'null') {
-                        let toDay = date.getFullYear()+'-'+(date.getMonth() + 1)+'-'+date.getDate();
-                        let toTime = date.getHours()+':'+date.getMinutes();
-                        if(toDay == items[i].date && toTime == items[i].time) {
-                            displayNotification('Напоминание по задаче', items[i].task);
-                        }
-                    } else {
-                        let toDay = date.getFullYear()+'-'+(date.getMonth() + 1)+'-'+date.getDate();
-                        if(toDay == items[i].date) {
-                            displayNotification('Напоминание по задаче', items[i].task);
-                        }
-                    }   
+        for(let i = 0; i < Object.keys(dataTasker).length; i++) {
+            if(typeof(dataTasker[i]) === 'object') {
+                if(dataTasker[i].status) {
+                    if(dataTasker[i].date != 'null' && dataTasker[i].date != null) {
+                        if(dataTasker[i].time != 'null' && dataTasker[i].time != null) {
+                            let toDay = date.getFullYear()+'-'+(date.getMonth() + 1)+'-'+date.getDate();
+                            let toTime = date.getHours()+':'+date.getMinutes();
+                            if(toDay == dataTasker[i].date && toTime == dataTasker[i].time) {
+                                displayNotification('Напоминание по задаче', dataTasker[i].task);
+                            }
+                        } else {
+                            let toDay = date.getFullYear()+'-'+(date.getMonth() + 1)+'-'+date.getDate();
+                            if(toDay == dataTasker[i].date) {
+                                displayNotification('Напоминание по задаче', dataTasker[i].task);
+                            }
+                        }   
+                    }
                 }
             }
         }
-}, 60000);
+
+    }
+}, 30000);

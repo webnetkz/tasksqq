@@ -44,7 +44,7 @@
     </div>
     <div class="error" onclick="closeError(this)"></div>
     <script>       
-        if(document.cookie == "user=true") {
+        if(localStorage.getItem('user')) {
             location.href = '/tasks';
         }
     </script>

@@ -11,13 +11,12 @@ function updateCheck(elem) {
 
         elem.removeAttribute('onclick');
         elem.setAttribute('onclick', 'unUpdateCheck(this)');
+        let dataTasker = localStorage.getItem(localStorage.getItem('user'));
+        dataTasker = JSON.parse(dataTasker);
 
-        let data = JSON.parse(localStorage.getItem(elem.id));
-        data.status = false;
-        data = JSON.stringify(data);
-    
-        localStorage.removeItem(elem.id);
-        localStorage.setItem(elem.id, data);
+        dataTasker[elem.id].status = false;
+        dataTasker = JSON.stringify(dataTasker);
+        localStorage.setItem(localStorage.getItem('user'), dataTasker);
 };
 function unUpdateCheck(elem) {
     // Меняет выполненую задачу, на невыполненую 
@@ -33,12 +32,12 @@ function unUpdateCheck(elem) {
         elem.removeAttribute('onclick');
         elem.setAttribute('onclick', 'updateCheck(this)');
 
-        let data = JSON.parse(localStorage.getItem(elem.id));
-        data.status = true;
-        data = JSON.stringify(data);
-    
-        localStorage.removeItem(elem.id);
-        localStorage.setItem(elem.id, data);
+        let dataTasker = localStorage.getItem(localStorage.getItem('user'));
+        dataTasker = JSON.parse(dataTasker);
+
+        dataTasker[elem.id].status = true;
+        dataTasker = JSON.stringify(dataTasker);
+        localStorage.setItem(localStorage.getItem('user'), dataTasker);
 };
 
 
@@ -59,35 +58,24 @@ function showMore(allTaskText) {
             allTaskText.style.paddingBottom = '1rem';
             allTaskText.style.borderBottom = '1px solid rgb(180,180,181)';
 
-            let idTask = JSON.parse(localStorage.getItem(allTaskText.previousSibling.id));
+            let dataTasker = JSON.parse(localStorage.getItem(localStorage.getItem('user')));
+            let task = allTaskText.previousElementSibling.id;
 
-            if(idTask.date != 'null') {
-                allTaskText.innerHTML += '<span class="date" style="display: block; font-size: 1rem;">'+idTask.date+'</span>';
+            if(dataTasker[task].date !== 'null' && dataTasker[task].date != null) {
+                allTaskText.innerHTML += '<span class="date" style="display: block; font-size: 1rem;">'+dataTasker[task].date+'</span>';
             }
         }
     });
 }
-
-
-// Раскрыть задачу 
-setTimeout(() => {
-    for(let allTaskText of document.querySelectorAll('.taskText')) {
-        showMore(allTaskText);
-    }
-    for(let allTaskText of document.querySelectorAll('.taskTextChecked')) {
-        showMore(allTaskText);
-    }
-}, 1000);
-
-
         
 
-// Добавить новую задачу
-document.querySelector('.addBtn').addEventListener('click', () => {
+// Отабражает панель добавления новой задачи
+function showAppenderNewTask() {
     let addNewTask = document.querySelector('.addNewTask');
-    addNewTask.style.display = 'flex';
-    addNewTask.style.top = '0';
-});
+    addNewTask.style.display = 'block';
+    addNewTask.style.top = '0px';
+}
+
 
 // Закрыть добавление задачи
 document.querySelector('.closeBtn').addEventListener('click', () => {
@@ -95,20 +83,16 @@ document.querySelector('.closeBtn').addEventListener('click', () => {
 });
 
 function updateList() {
-    // Получение списка задач
-    const items = {...localStorage};
-
     let allTasks = document.querySelector('#allTasks');
     allTasks.innerHTML = '';
-
-        for(let i = 1; i <= Object.keys(items).length; i++) {
-            let item = items[i];
-                item = JSON.parse(item);
-
+    let dataTasker = localStorage.getItem(localStorage.getItem('user'));
+    if(dataTasker) {
+        dataTasker = JSON.parse(dataTasker);
+        for(let i = 1; i < Object.keys(dataTasker).length; i++) {
             let thisTaskBtn;
             let thisTaskText;
         
-            if(item.status == true) {
+            if(dataTasker[i].status == true) {
                 thisTaskBtn = 'radio';
                 thisTaskText = 'taskText';
                 thisOnClick = 'updateCheck(this);';
@@ -117,16 +101,25 @@ function updateList() {
                 thisTaskText = 'taskTextChecked';
                 thisOnClick = 'unUpdateCheck(this);';
             }
-        
-            showTask = '<div class="task"><div class="'+thisTaskBtn+'" id="'+i+'" onclick="'+thisOnClick+'"></div><div class="'+thisTaskText+'">'+item.task+'</div></div>';
+                
+            showTask = '<div class="task"><div class="'+thisTaskBtn+'" id="'+i+'" onclick="'+thisOnClick+'"></div><div class="'+thisTaskText+'">'+dataTasker[i].task+'</div></div>';
             allTasks.innerHTML += showTask;
         }
+    
+    }
+    for(let allTaskText of document.querySelectorAll('.taskText')) {
+        showMore(allTaskText);
+    }
+    for(let allTaskText of document.querySelectorAll('.taskTextChecked')) {
+        showMore(allTaskText);
+    }
 }
 
 
 
 // Сохранение новой задачи
 document.querySelector('#save').addEventListener('click', () => {
+    // Получение значения всех полей новой задачи
     let newTaskContent = document.querySelector('#newTask').value.replace(/\r?\n/g, " ");
     if(newTaskContent == '') return false;
     let newTaskDate = document.querySelector('#date').value.replace(/\r?\n/g, " ");
@@ -134,20 +127,35 @@ document.querySelector('#save').addEventListener('click', () => {
     let newTaskTime = document.querySelector('#time').value.replace(/\r?\n/g, " ");
     if(newTaskTime == '') newTaskTime = null;
 
-    const items = {...localStorage};
-    let lastIdTask = Object.keys(items).length + 1;
+    // Получение название задачника
+    let tasker = localStorage.getItem('user');
 
-    localStorage.setItem(lastIdTask, '{"status": true, "task": "'+newTaskContent+'", "date": "'+newTaskDate+'", "time": "'+newTaskTime+'"}');
+    // Получение данных задачника, конвертация в JSON
+    let getLastTaskOfTasker = localStorage.getItem(tasker);
+    getLastTaskOfTasker = JSON.parse(getLastTaskOfTasker);
+    
+    if(Object.keys(getLastTaskOfTasker).length == 1) {
+        // Если задач нет в задачнике
+        task = 1;
+        localStorage.setItem(tasker, '{"tasker": "'+getLastTaskOfTasker.tasker+'", "'+task+'": {"status": true, "task": "'+newTaskContent+'", "date": "'+newTaskDate+'", "time": "'+newTaskTime+'"}}');
+    } else {
+        // Если задачи уже добавлены в задачник
+        let nameNewTasker = Object.keys(getLastTaskOfTasker).length;
+        getLastTaskOfTasker[nameNewTasker] = {"status": true, "task": newTaskContent, "date": newTaskDate, "time": newTaskTime};
+        getLastTaskOfTasker = JSON.stringify(getLastTaskOfTasker);
+        localStorage.setItem(tasker, getLastTaskOfTasker);
+    }
 
+    // Очищает поля для создания новой задачи
     document.querySelector('#newTask').value = '';
     document.querySelector('#date').value = '';
     document.querySelector('.addNewTask').style.display = 'none';
-    updateList();
+
     for(let allTaskText of document.querySelectorAll('.taskText')) {
         showMore(allTaskText);
     }
     for(let allTaskText of document.querySelectorAll('.taskTextChecked')) {
         showMore(allTaskText);
     }
+    updateList();
 });
-updateList();

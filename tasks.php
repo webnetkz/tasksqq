@@ -38,21 +38,19 @@
         <span class="menuTasksBtn" onclick="showMenuTasks();">
             <img src="/public/img/squares.png">
         </span>
-        <span class="addBtn">+</span>
+        <span class="addBtn" onclick="showAppenderNewTask()">+</span>
     </footer>
     <div class="menuTasks" style="left: -100vw;">
         <h2 onclick="addNewList(this);">+ Create new list</h2>
         <hr>
         <div class="menuTasksList">
             <ul>
-                <!-- <li class="menuTasksItem">menuTasksList </li>
-                <li class="menuTasksItem activeMenuTasksItem">menuTasksList</li> -->
             </ul>
         </div>
     </div>
     <div class="error" onclick="closeError(this)"></div>
     <script src="/public/js/error.js"></script>
-    <!-- <script src="/public/js/main.js"></script> -->
+    <script src="/public/js/main.js"></script>
     <script src="/public/js/addNewTasks.js"></script>
     <script src="/public/js/notifications.js"></script>
     <script src="/public/js/showNotifications.js"></script>

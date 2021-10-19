@@ -28,7 +28,7 @@ function appendNewTasksList(val) {
         showError("Fill in the title");
         return false;
     }
-    localStorage.setItem('task'+(localStorage.length + 1), val);
+    localStorage.setItem('task'+(localStorage.length + 1), '{"tasker":"'+val+'"}');
     if(document.querySelector('.menuTasks').style.left == '0px') {
         document.querySelector('.menuTasks').style.left = '-100vw';
     }
@@ -38,6 +38,8 @@ function appendNewTasksList(val) {
     showAllListOfTask(document.querySelector('#task'+(localStorage.length)));
     // Сворачивает меню задачников
     showMenuTasks();
+    // Обновить список задач
+    updateList(localStorage.getItem('user'));
 }
 
 window.onload = function() {
@@ -50,32 +52,42 @@ window.onload = function() {
         document.querySelector('.menuTasks').style.left = '0px';
     } else {
         showAllList();
+        // Обновить список задач
+        updateList(localStorage.getItem('user'));
     }
     // Проверяет активный задачник
     let checkActiveList = localStorage.getItem('user');
-    if(checkActiveList != true) {
-        document.querySelector('h1').innerText = localStorage.getItem(checkActiveList);
+    if(checkActiveList != 'true') {
+        let dataTasker = JSON.parse(localStorage.getItem(checkActiveList));
+        document.querySelector('h1').innerText = dataTasker.tasker;
     }
 };
 
 function showAllList() {
     // Если есть действующие задачники, то отображает их в меню
     let list = document.querySelector('.menuTasksList ul');
+    list.innerHTML = '';
     for(let i = 1; i < localStorage.length+1; i++) {
+        // Получает JSON строку всего задачника
         let resTask = localStorage.getItem('task'+i);
-        let task = document.createElement('li');
-        task.innerText = resTask;
-        task.classList.add('menuTasksItem');
-        task.id = 'task'+i;
-        task.setAttribute('onclick', 'showAllListOfTask(this)');
-        list.appendChild(task);
+        if(resTask) {
+            let task = document.createElement('li');
+            let dataTask = JSON.parse(resTask);
+            let nameTask = dataTask.tasker;
+            task.innerText = nameTask;
+            task.classList.add('menuTasksItem');
+            task.id = 'task'+i;
+            task.setAttribute('onclick', 'showAllListOfTask(this)');
+            list.appendChild(task);
+        }
     }
 }
 
 // Делает активным выбранный список
 function showAllListOfTask(elem) {
     let res = localStorage.getItem(elem.id);
-    document.querySelector('h1').innerText = res;
+    dataTask = JSON.parse(res);
+    document.querySelector('h1').innerText = dataTask.tasker;
     // Деактивирует активный элемент меню
     if(document.querySelector('.activeMenuTasksItem')) {
         document.querySelector('.activeMenuTasksItem').classList.remove('activeMenuTasksItem');
@@ -85,4 +97,6 @@ function showAllListOfTask(elem) {
     localStorage.setItem('user', elem.id);
     // Сворачивает меню задачников
     showMenuTasks();
+    // Обновить список задач
+    updateList();
 }

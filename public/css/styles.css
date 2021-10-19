@@ -76,6 +76,12 @@ body {
     border: none;
     outline: none;
 }
+.time {
+    background: none;
+    color: rgb(27, 238, 19);
+    border: none;
+    outline: none;
+}
 footer {
     background-color: rgb(55,56,60);
     color: rgb(179,179,179);
@@ -112,7 +118,8 @@ footer {
 
 
 h1 {
-    margin: 20px 0px 20px 50px;
+    margin: 20px 10px 20px 50px;
+    word-wrap: break-word;
 }
 .task {
     display: flex;
