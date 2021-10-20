@@ -50,7 +50,9 @@ function showMore(allTaskText) {
             allTaskText.style.paddingBottom = '0';
             allTaskText.style.borderBottom = '0';
             if(allTaskText.querySelector('span')) {
-                allTaskText.querySelector('span').remove();
+                for(let allElems of allTaskText.querySelectorAll('span')) {
+                    allElems.remove();
+                }
             }
         } else {
             allTaskText.style.textOverflow = 'clip';
@@ -62,7 +64,11 @@ function showMore(allTaskText) {
             let task = allTaskText.previousElementSibling.id;
 
             if(dataTasker[task].date !== 'null' && dataTasker[task].date != null) {
-                allTaskText.innerHTML += '<span class="date" style="display: block; font-size: 1rem;">'+dataTasker[task].date+'</span>';
+                if(dataTasker[task].time !== 'null' && dataTasker[task].time != null) {
+                    allTaskText.innerHTML += '<span class="date" style="display: block; font-size: 1rem;">'+dataTasker[task].date+'</span><span class="time" style="display: block; font-size: 1rem;">'+dataTasker[task].time+'</span>';
+                } else {
+                    allTaskText.innerHTML += '<span class="date" style="display: block; font-size: 1rem;">'+dataTasker[task].date+'</span>';
+                }
             }
         }
     });
