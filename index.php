@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/css/styles.css">
-    <title>Tasks QQ</title>
+    <title>TasKZ</title>
 
         <meta name="theme-color" content="#2196f3">
         <meta name="author" content="webnet.kz">
@@ -44,11 +44,11 @@
     </div>
     <div class="error" onclick="closeError(this)"></div>
     <script>       
-        if(localStorage.getItem('user')) {
+        if(localStorage.getItem('settings')) {
             location.href = '/tasks';
         }
     </script>
-    <script>
+    <!-- <script>
         // Проверка браузера на поддержку service worker
         if('serviceWorker' in navigator) {
             // Подключаем sw
@@ -56,7 +56,7 @@
                 console.log("Service Worker Registered");
             });
         }
-    </script>
+    </script> -->
     <script src="/public/js/error.js"></script>
     <script src="/public/js/authorization.js"></script>
     <script>

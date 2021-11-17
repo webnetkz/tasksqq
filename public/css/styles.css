@@ -60,13 +60,16 @@ body {
 }
 .btn {
     border: none;
-    background: none;
-    color: rgb(137,180,248);
+    background: var(--mainColor);
+    color: var(--mainBg);
     font-weight: 700;
+    padding: 5px;
+    border-radius: 3px;
 }
 .btn:hover {
     cursor: pointer;
-    text-shadow: 0 0 5px rgb(137,180,248);
+    box-shadow: 0 0 5px var(--mainBg);
+    cursor: pointer;
 }
 
 
@@ -108,15 +111,14 @@ footer {
     justify-content: center;
     align-items: center;
 }
-.addBtn:active {
+.addBtn:active, .addBtn:hover {
     color: rgb(124, 124, 124);
     text-shadow: 0 0 15px rgb(137,180,248);
     border: 6px solid rgb(137,180,248);
     box-shadow: none;
     transform: rotateZ(90deg);
+    cursor: pointer;
 }
-
-
 h1 {
     margin: 20px 10px 20px 50px;
     word-wrap: break-word;
@@ -229,7 +231,8 @@ h1 {
     color:#333;
     text-align: center;
     animation: showError 0.4s linear;
-    z-index: 999;
+    z-index: 99999;
+    box-shadow: 0 0 10px rgb(42, 39, 39);
 }
 @keyframes showError {
     from {
@@ -245,4 +248,32 @@ h1 {
 }
 hr {
     border-color: var(--mainColor);
+}
+.modalClose:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+@keyframes showModalBlock {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes showModalContent {
+    from {
+        left: -400px;
+    }
+    to {
+        left: 0px;
+    }
+}
+@keyframes showModalClose {
+    from {
+        top: -200px;
+    }
+    to {
+        top: -7px;
+    }
 }

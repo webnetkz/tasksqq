@@ -38,10 +38,10 @@
         <span class="menuTasksBtn" onclick="showMenuTasks();">
             <img src="/public/img/squares.png">
         </span>
-        <span class="addBtn" onclick="showAppenderNewTask()">+</span>
+        <span class="addBtn">+</span>
     </footer>
     <div class="menuTasks" style="left: -100vw;">
-        <h2 onclick="addNewList(this);">+ Create new list</h2>
+        <h2></h2>
         <hr>
         <div class="menuTasksList">
             <ul>
@@ -50,11 +50,12 @@
     </div>
     <div class="error" onclick="closeError(this)"></div>
     <script src="/public/js/error.js"></script>
+    <script src="/public/js/modal.js"></script>
     <script src="/public/js/main.js"></script>
-    <script src="/public/js/addNewTasks.js"></script>
-    <script src="/public/js/notifications.js"></script>
-    <script src="/public/js/showNotifications.js"></script>
-    <script>
+    <!-- <script src="/public/js/addNewTasks.js"></script> -->
+    <!-- <script src="/public/js/notifications.js"></script>
+    <script src="/public/js/showNotifications.js"></script> -->
+    <!-- <script>
         // Проверка браузера на поддержку service worker
         if('serviceWorker' in navigator) {
             // Подключаем sw
@@ -62,9 +63,6 @@
                 console.log("Service Worker Registered");
             });
         }
-    </script>
-    <script>
-        
-    </script>
+    </script> -->
 </body>
 </html>

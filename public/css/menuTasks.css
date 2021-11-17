@@ -19,7 +19,7 @@
     z-index: 45;
 }
 .menuTasks h2 {
-    color: var(--mainColorText);
+    color: var(--mainColor);
     padding: 5px 10px;
 }
 .menuTasksList {

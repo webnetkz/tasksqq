@@ -1,4 +1,5 @@
 function authorization() {
+    
     let email = document.querySelector('#email');
     let password = document.querySelector('#password');
 
@@ -26,7 +27,7 @@ function authorization() {
                         showError('You entered an incorrect password!');
                     }
                     if(xhr.responseText == 'GOOD') {
-                        localStorage.setItem('user', 'true');
+                        localStorage.setItem('settings', '{}');
                         location.href = '/tasks';
                     }
                 }

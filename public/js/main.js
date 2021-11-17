@@ -1,167 +1,220 @@
-function updateCheck(elem) {
-    // Меняет задачу на выполненую
-        // Меняет Радио на Чек
-        let father = elem.parentNode;
-        elem.classList.add('checkMark');
-        elem.classList.remove('radio');
-        // Перечеркивает текст
-        let contentTask = father.querySelector('.taskText');
-        contentTask.classList.add('taskTextChecked');
-        contentTask.classList.add('taskText');
+window.onload = startApp();
 
-        elem.removeAttribute('onclick');
-        elem.setAttribute('onclick', 'unUpdateCheck(this)');
-        let dataTasker = localStorage.getItem(localStorage.getItem('user'));
-        dataTasker = JSON.parse(dataTasker);
+function startApp() {
 
-        dataTasker[elem.id].status = false;
-        dataTasker = JSON.stringify(dataTasker);
-        localStorage.setItem(localStorage.getItem('user'), dataTasker);
-};
-function unUpdateCheck(elem) {
-    // Меняет выполненую задачу, на невыполненую 
-        // Меняет чек на радио
-        let father = elem.parentNode;
-        elem.classList.add('radio');
-        elem.classList.remove('checkMark');
-        // Уберает перечеркивание текста
-        let contentTask = father.querySelector('.taskTextChecked');
-        contentTask.classList.add('taskText');
-        contentTask.classList.remove('taskTextChecked');
+    // Проверка на авторизацию пользователя
+    if(!localStorage.getItem('settings')) {
+        location.href = 'index';
+    }
 
-        elem.removeAttribute('onclick');
-        elem.setAttribute('onclick', 'updateCheck(this)');
+    // Проверка на первый вход или отсутствие действующих списков задач
+    if(localStorage.length <= 1) {
+        // Запрет на создание новой задачи, при отсутствии списка/ков
+        let addBtn = document.querySelector('.addBtn');
+        addBtn.removeAttribute('onclick');
+        addBtn.setAttribute('onclick', 'showModal("Create new list", "newList")');
+        // Создание первого списка
+        showModal('We welcome you, this is your first visit to the app. Please create your first task list.', 1);
+    } else {
+        let addBtn = document.querySelector('.addBtn');
+        addBtn.removeAttribute('onclick');
+        addBtn.setAttribute('onclick', 'alert("Hi")');
+    }
 
-        let dataTasker = localStorage.getItem(localStorage.getItem('user'));
-        dataTasker = JSON.parse(dataTasker);
+    // Отображение активного списка
+    let settings = localStorage.getItem('settings'); 
+    settings = JSON.parse(settings);
+    if(!settings.active_list) {
+        settings.active_list = 'CREATE LIST';
+    }
+    document.querySelector('h2').innerText = settings.active_list;
 
-        dataTasker[elem.id].status = true;
-        dataTasker = JSON.stringify(dataTasker);
-        localStorage.setItem(localStorage.getItem('user'), dataTasker);
-};
+    // Отображение существующих списков задач
+    let menuTasksList = document.querySelector('.menuTasksList > ul');
+    menuTasksList.innerHTML = '';
+    let sortPosition = [];
+    
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
 
+        if(key != 'settings') {
+            let settings = localStorage.getItem('settings'); 
+            settings = JSON.parse(settings);
 
-// Раскрытие задачи
-function showMore(allTaskText) {
-    allTaskText.addEventListener('click', () => {
-        if(allTaskText.style.textOverflow == 'clip') {
-            allTaskText.style.textOverflow = 'ellipsis';
-            allTaskText.style.maxHeight = '3rem';
-            allTaskText.style.paddingBottom = '0';
-            allTaskText.style.borderBottom = '0';
-            if(allTaskText.querySelector('span')) {
-                for(let allElems of allTaskText.querySelectorAll('span')) {
-                    allElems.remove();
-                }
+            nameList = localStorage.getItem(key)
+            nameList = JSON.parse(nameList);
+
+            let newElementMenu = document.createElement('li');
+            if(settings.active_list == nameList.name) {
+                newElementMenu.classList.add('activeMenuTasksItem');
+                newElementMenu.setAttribute('onclick', 'activeList(this)');
+            } else {
+                newElementMenu.classList.add('menuTasksItem');
+                newElementMenu.setAttribute('onclick', 'activeList(this)');
             }
-        } else {
-            allTaskText.style.textOverflow = 'clip';
-            allTaskText.style.maxHeight = '100%';
-            allTaskText.style.paddingBottom = '1rem';
-            allTaskText.style.borderBottom = '1px solid rgb(180,180,181)';
 
-            let dataTasker = JSON.parse(localStorage.getItem(localStorage.getItem('user')));
-            let task = allTaskText.previousElementSibling.id;
 
-            if(dataTasker[task].date !== 'null' && dataTasker[task].date != null) {
-                if(dataTasker[task].time !== 'null' && dataTasker[task].time != null) {
-                    allTaskText.innerHTML += '<span class="date" style="display: block; font-size: 1rem;">'+dataTasker[task].date+'</span><span class="time" style="display: block; font-size: 1rem;">'+dataTasker[task].time+'</span>';
-                } else {
-                    allTaskText.innerHTML += '<span class="date" style="display: block; font-size: 1rem;">'+dataTasker[task].date+'</span>';
-                }
-            }
+            let list = localStorage.getItem(key); 
+            list = JSON.parse(list);
+            newElementMenu.setAttribute('position', list.position);
+
+            sortPosition.push(list.position);
+
+            newElementMenu.innerText = list.name;
+            menuTasksList.appendChild(newElementMenu);
         }
-    });
-}
-        
+    }
 
-// Отабражает панель добавления новой задачи
+    function compareNumbers(a, b) {
+        return a - b;
+    }
+
+    sortPosition.sort(compareNumbers);
+    let allList = document.querySelectorAll('.menuTasksList > ul > li');
+    let newList = document.createElement('ul');
+    let nowList = document.querySelector('.menuTasksList > ul');
+    let menuList = document.querySelector('.menuTasksList');
+
+    for (let i = 0; i < allList.length; i++) {
+        newList.appendChild(nowList.querySelector('li[position="'+sortPosition[i]+'"]'));
+    }
+    nowList.remove();
+    menuList.appendChild(newList);
+
+    settings_list();
+}
+
+// Выбор активного списка задач
+function activeList(elem) {
+    let settings = localStorage.getItem('settings'); 
+    settings = JSON.parse(settings);
+
+    settings.active_list = elem.innerText;
+    settings = JSON.stringify(settings);
+    localStorage.setItem('settings', settings);
+
+
+    document.querySelector('.activeMenuTasksItem').classList.add('menuTasksItem');
+    document.querySelector('.activeMenuTasksItem').classList.remove('activeMenuTasksItem');
+    elem.classList.add('activeMenuTasksItem');
+    startApp();
+}
+
+    
+
+// Создать новый список задач
+function create_task(elem) {
+    if(elem.parentNode.previousSibling.previousSibling.value == '' || elem.parentNode.previousSibling.previousSibling.value == ' ') {
+        showError('Fill in the name of the new list');
+    } else {
+        let newTask = elem.parentNode.previousSibling.previousSibling.value;
+        let settings = localStorage.getItem('settings');
+        set = JSON.parse(settings);
+        set.active_list = newTask;
+
+        set = JSON.stringify(set);
+        localStorage.setItem('settings', set)
+
+        document.querySelector('h2').innerText = newTask;
+
+        localStorage.setItem(newTask, '{"name": "'+newTask+'", "position": 100}');
+        document.querySelector('.modalBlock').remove();
+        startApp();
+    }
+}
+
+// Добавить задачу
 function showAppenderNewTask() {
     let addNewTask = document.querySelector('.addNewTask');
     addNewTask.style.display = 'block';
     addNewTask.style.top = '0px';
 }
 
-
 // Закрыть добавление задачи
 document.querySelector('.closeBtn').addEventListener('click', () => {
     document.querySelector('.addNewTask').style.display = 'none';
 });
 
-function updateList() {
-    let allTasks = document.querySelector('#allTasks');
-    allTasks.innerHTML = '';
-    let dataTasker = localStorage.getItem(localStorage.getItem('user'));
-    if(dataTasker) {
-        dataTasker = JSON.parse(dataTasker);
-        for(let i = 1; i < Object.keys(dataTasker).length; i++) {
-            let thisTaskBtn;
-            let thisTaskText;
-        
-            if(dataTasker[i].status == true) {
-                thisTaskBtn = 'radio';
-                thisTaskText = 'taskText';
-                thisOnClick = 'updateCheck(this);';
-            } else {
-                thisTaskBtn = 'checkMark';
-                thisTaskText = 'taskTextChecked';
-                thisOnClick = 'unUpdateCheck(this);';
-            }
-                
-            showTask = '<div class="task"><div class="'+thisTaskBtn+'" id="'+i+'" onclick="'+thisOnClick+'"></div><div class="'+thisTaskText+'">'+dataTasker[i].task+'</div></div>';
-            allTasks.innerHTML += showTask;
+// Открыть список задач
+function showMenuTasks() {
+    let menuTasks = document.querySelector('.menuTasks');
+    if(menuTasks.style.left == '-100vw') {
+        menuTasks.style.left = '0px';
+
+        let addBtn = document.querySelector('.addBtn');
+        addBtn.removeAttribute('onclick');
+        addBtn.setAttribute('onclick', 'showModal("Create new list", "newList")');
+    } else {
+        menuTasks.style.left = '-100vw';
+        let addBtn = document.querySelector('.addBtn');
+        if(localStorage.length <= 1) {
+            addBtn.removeAttribute('onclick');
+            addBtn.setAttribute('onclick', 'showModal("Create new list", "newList")');
+        } else {
+            addBtn.removeAttribute('onclick');
+            addBtn.setAttribute('onclick', 'alert("Hi")');
         }
-    
-    }
-    for(let allTaskText of document.querySelectorAll('.taskText')) {
-        showMore(allTaskText);
-    }
-    for(let allTaskText of document.querySelectorAll('.taskTextChecked')) {
-        showMore(allTaskText);
     }
 }
 
+// Добавляет значек настроек активному списку меню
+function settings_list() {
+    let list = document.querySelector('.activeMenuTasksItem');
+    let settings = document.createElement('img');
+    settings.src = '/public/img/settings.png';
+    settings.style.cssText = `
+        position: absolute;
+        right: 30px;
+    `;
+    settings.setAttribute('onclick', 'show_settings_list(this);');
 
+    if(list) {
+        list.appendChild(settings);
+    }
+}
 
-// Сохранение новой задачи
-document.querySelector('#save').addEventListener('click', () => {
-    // Получение значения всех полей новой задачи
-    let newTaskContent = document.querySelector('#newTask').value.replace(/\r?\n/g, " ");
-    if(newTaskContent == '') return false;
-    let newTaskDate = document.querySelector('#date').value.replace(/\r?\n/g, " ");
-    if(newTaskDate == '') newTaskDate = null;
-    let newTaskTime = document.querySelector('#time').value.replace(/\r?\n/g, " ");
-    if(newTaskTime == '') newTaskTime = null;
+// Отображение настроек списка задач
+function show_settings_list(elem) {
+    showModal('<h4 style="display: inline-block;">Name:  <input type="text" class="inp" value="'+elem.parentNode.innerText+'" onchange="change_name_list(this)"></h4><h4 style="display: inline-block;">Position:  <i style="margin-left: 50px; margin-right: 5px;font-size: 1.3rem;" onclick="change_position_list(this);"> - </i><span style="color: var(--mainColor)">'+elem.parentNode.getAttribute('position')+'</span><i style="margin-left: 5px; font-size: 1.3rem;" onclick="change_position_list(this, 1);"> + </i></h4><span class="btn" style="display: block; text-align: center; margin-top: 20px;" onclick="del_list()">Delete</span>');
+}
 
-    // Получение название задачника
-    let tasker = localStorage.getItem('user');
+// Удаление списка
+// function del_list() {
+//     let settings = localStorage.getItem('settings');
+//     settings = JSON.parse(settings);
+//     console.log(settings.active_list);
+//     localStorage.removeItem(settings.active_list);
+// }
 
-    // Получение данных задачника, конвертация в JSON
-    let getLastTaskOfTasker = localStorage.getItem(tasker);
-    getLastTaskOfTasker = JSON.parse(getLastTaskOfTasker);
-    
-    if(Object.keys(getLastTaskOfTasker).length == 1) {
-        // Если задач нет в задачнике
-        task = 1;
-        localStorage.setItem(tasker, '{"tasker": "'+getLastTaskOfTasker.tasker+'", "'+task+'": {"status": true, "task": "'+newTaskContent+'", "date": "'+newTaskDate+'", "time": "'+newTaskTime+'"}}');
+function change_position_list(elem, meaning) {
+    let settings = localStorage.getItem('settings');
+    settings = JSON.parse(settings);
+    let list = localStorage.getItem(settings.active_list);
+    list = JSON.parse(list);
+    if(meaning) {
+        elem.previousSibling.innerText = Number(elem.previousSibling.innerText) + 1;
+        list.position = elem.previousSibling.innerText;
     } else {
-        // Если задачи уже добавлены в задачник
-        let nameNewTasker = Object.keys(getLastTaskOfTasker).length;
-        getLastTaskOfTasker[nameNewTasker] = {"status": true, "task": newTaskContent, "date": newTaskDate, "time": newTaskTime};
-        getLastTaskOfTasker = JSON.stringify(getLastTaskOfTasker);
-        localStorage.setItem(tasker, getLastTaskOfTasker);
+        elem.nextSibling.innerText = Number(elem.nextSibling.innerText) - 1;
+        list.position = elem.nextSibling.innerText;
     }
+    list = JSON.stringify(list);
+    localStorage.setItem(settings.active_list, list)
 
-    // Очищает поля для создания новой задачи
-    document.querySelector('#newTask').value = '';
-    document.querySelector('#date').value = '';
-    document.querySelector('.addNewTask').style.display = 'none';
+    startApp();
+}
 
-    for(let allTaskText of document.querySelectorAll('.taskText')) {
-        showMore(allTaskText);
-    }
-    for(let allTaskText of document.querySelectorAll('.taskTextChecked')) {
-        showMore(allTaskText);
-    }
-    updateList();
-});
+function change_name_list(elem) {
+    let settings = localStorage.getItem('settings');
+    settings = JSON.parse(settings);
+    let list = localStorage.getItem(settings.active_list);
+    list = JSON.parse(list);
+    list.name = elem.value;
+    list = JSON.stringify(list);
+    localStorage.setItem(settings.active_list, list);
+    settings.active_list = elem.value;
+    settings = JSON.stringify(settings);
+    localStorage.setItem('settings', settings);
+
+    startApp();
+}
