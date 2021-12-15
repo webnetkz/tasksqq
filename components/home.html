@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/core.css">
+    <link rel="stylesheet" href="../public/css/menuTasks.css">
+    <link rel="shortcut icon" href="../public/img/miniLogo.png" type="image/png">
+    <link rel="apple-touch-icon" href="../public/img/logo.png">
+    <title>HOME</title>
+
+</head>
+<body>
+
+    <footer>
+        <span class="menuTasksBtn" onclick="showMenuTasks();">
+            <img src="../public/img/squares.png">
+        </span>
+        <span class="addBtn">+</span>
+    </footer>
+    <div class="menuTasks" style="left: -100vw;">
+        <h2></h2>
+        <hr>
+        <div class="menuTasksList">
+            <ul>
+            </ul>
+        </div>
+    </div>
+    <!-- <script>
+        // Проверка браузера на поддержку service worker
+        if('serviceWorker' in navigator) {
+            // Подключаем sw
+               navigator.serviceWorker.register('/sw.js').then(function() {
+                console.log("Service Worker Registered");
+            });
+        }
+    </script> -->
+</body>
+</html>

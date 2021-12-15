@@ -8,6 +8,14 @@ function closeError(elem) {
 
 function showError(msg) {
     let errorBlock = document.querySelector('.error');
+    errorBlock.classList.add('errorAnim');
     errorBlock.style.display = 'block';
     errorBlock.innerHTML = msg;
 }
+
+// Добавление блока отображения ошибок
+let errorBlock = document.createElement('div');
+errorBlock.classList.add('error');
+errorBlock.setAttribute('onclick', 'closeError(this)');
+document.body.appendChild(errorBlock);
+

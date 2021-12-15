@@ -21,10 +21,10 @@ function authorization() {
                 if(xhr.readyState === 4 && xhr.status === 200) {
                     // Полученый ответ от сервера
                     if(xhr.responseText == 'not user') {
-                        showError('User with this username is not registered!');
+                        showError('Пользователь с данным логином не зарегистрирован!');
                     }
                     if(xhr.responseText == 'bad pass') {
-                        showError('You entered an incorrect password!');
+                        showError('Пароль введен не верно!');
                     }
                     if(xhr.responseText == 'GOOD') {
                         localStorage.setItem('settings', '{}');
@@ -36,9 +36,9 @@ function authorization() {
             // Отправка запроса на сервер
             xhr.send('login=' + login + '&pass=' + pass);
         } else {
-            showError('Enter password!');
+            showError('Введите пароль!');
         }
     } else {
-        showError('Enter your username or email!');
+        showError('Введите логин или email!');
     }
 }

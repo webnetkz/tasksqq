@@ -3,9 +3,9 @@
 # Turn on mod rewriteEngine
 # For Apach2 - a2enmod rewrite
 RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.php -f
-RewriteRule ^(.*)$ $1.php
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteCond %{REQUEST_FILENAME}\.php -f
+        RewriteRule ^(.*)$ $1.php
 # LifeTime session and cookie
     #php_value session.gc_maxlifetime 86400
     #php_value session.cookie_lifetime 0 

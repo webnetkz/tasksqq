@@ -37,7 +37,7 @@
                     <span class="neonBtnL neonBtnL-r"></span>
                     <span class="neonBtnL neonBtnL-b"></span>
                     <span class="neonBtnL neonBtnL-l"></span>
-                    Authorization
+                    Авторизоваться
                 </a>
             </div>
         </form>

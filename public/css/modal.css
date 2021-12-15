@@ -1,0 +1,35 @@
+.icon img {
+    height: 1.6rem;
+    padding: 0 10px;
+}
+.modalClose:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+@keyframes showModalBlock {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes showModalContent {
+    from {
+        left: -400px;
+    }
+    to {
+        left: 0px;
+    }
+}
+@keyframes showModalClose {
+    from {
+        top: -200px;
+    }
+    to {
+        top: -7px;
+    }
+}
+@media only screen and (max-width: 1000px) {
+
+}
