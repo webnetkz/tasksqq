@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <title>App name</title>
+
+        <meta charset="UTF-8">
+        <meta name="theme-color" content="#202023">
+        <meta name="author" content="webnet.kz">
+        <meta name="description" content="mini project stopwatch of webnet.kz">
+        <meta name="keywords" content="stopwatch, webnet, webnet.kz, PWA">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="index, follow">
+
+        <link rel="shortcut icon" href="./public/img/logos/64.png" type="image/png">
+        <link rel="apple-touch-icon" href="./public/img/logos/512.png">
+        <link rel="stylesheet" type="text/css" href="./public/css/style.css">
+        <!-- <link rel="stylesheet" href="./public/css/mobileStyle.css"> -->
+        <link rel="manifest" href="./public/json/manifest.json"> 
+
+        <style>
+          @media only screen and (max-width: 1280px) {
+          }
+        </style>
+      </head>
+
+    <body>
+
+      <header>
+        <div class="headerTop">
+          <h1>Задачи</h1>
+        </div>
+        <div class="headerBottom">
+          <div>
+            <ul>
+              <li class="board">sadfsadf</li>
+              <li class="board">sadfasf</li>
+              <li class="board">sadfsda fsdafsd</li>
+              <li class="board">asdfas</li>
+              <li class="board">sadfsdaf</li>
+              <li class="board">sadf fasdfas</li>
+              <li class="board">asd asd ferh</li>
+              <li class="board">hewh wer </li>
+              <li class="board">ewrtwe</li>
+              <li class="board">ewe</li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <!-- <script src="./public/js/main.js" type="module"></script> -->
+      <script>
+        // Проверка браузера на поддержку service worker
+       if('serviceWorker' in navigator) {
+           // Подключаем sw
+           //navigator.serviceWorker.register('./sw.js').then(function() {
+               console.log("Service Worker Registered");
+           //});
+       }
+    </script>
+  </body>
+</html>

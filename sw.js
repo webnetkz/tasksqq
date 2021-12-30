@@ -1,11 +1,12 @@
 importScripts('/public/js/cache-polyfill.js');
 
-
 self.addEventListener('install', function(e) {
  e.waitUntil(
    caches.open('title').then(function(cache) {
      return cache.addAll([
-       '/',
+       '/index.html',
+       '/public/css/style.css',
+       '/public/js/main.js',
      ]);
    })
  );

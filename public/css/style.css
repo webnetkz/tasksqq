@@ -1,0 +1,51 @@
+:root {
+  --whiteColor: rgb(253, 253, 253);
+  --grayColor: rgb(230, 230, 230);
+  --redColor: rgb(255, 0, 0);
+  --bgColor: #202023;
+  --mainColor: #658DFF;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  font-family: sans-serif;
+  background-color: var(--bgColor);
+  scroll-behavior: smooth;
+  overflow-x: hidden; 
+  color: var(--whiteColor);
+  transition-duration: 500ms;
+}
+header {
+  position: fixed;
+  z-index: 3;
+  min-height: 100px;
+  min-width: 100vw;
+}
+.headerTop {
+  height: 50px;
+  color: var(--whiteColor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.headerBottom {
+  height: 50px;
+  color: var(--grayColor);
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  border-bottom: 0.5px solid rgba(200, 200, 200, 0.1);
+}
+.headerBottom > div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
+  width: 120vw;
+}
+.headerBottom > div > ul {
+  display: flex;
+}
