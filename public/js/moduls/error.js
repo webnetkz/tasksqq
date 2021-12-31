@@ -1,7 +1,7 @@
 export function createError() {
     let errorBlock = document.createElement('div');
     errorBlock.classList.add('error');
-    errorBlock.setAttribute('onclick', 'closeError(this)');
+    errorBlock.setAttribute('onclick', 'closeError()');
     document.body.appendChild(errorBlock);
 }
 export function showError(msg) {
@@ -10,10 +10,11 @@ export function showError(msg) {
     errorBlock.style.display = 'block';
     errorBlock.innerHTML = msg;
 }
-export function closeError(elem) {
-    elem.style.top = '-200px';
+export function closeError() {
+    let err = document.querySelector('.error');
+    err.style.top = '-200px';
     setTimeout(() => {
-        elem.style.top = '10px';
-        elem.style.display = 'none';
+        err.style.top = '10px';
+        err.style.display = 'none';
     }, 500);
 }
