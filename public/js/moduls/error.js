@@ -12,9 +12,11 @@ export function showError(msg) {
 }
 export function closeError() {
     let err = document.querySelector('.error');
-    err.style.top = '-200px';
-    setTimeout(() => {
-        err.style.top = '10px';
-        err.style.display = 'none';
-    }, 500);
+    err.addEventListener('click', () => {
+        err.style.top = '-200px';
+        setTimeout(() => {
+            err.style.top = '10px';
+            err.style.display = 'none';
+        }, 500);
+    });
 }
