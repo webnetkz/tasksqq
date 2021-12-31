@@ -8,6 +8,7 @@ export function initTaskBoard() {
     localStorage.setItem('task_boards', taskBoards);
 
     console.log(activeTaskBoard);
+    getTaskBoards();
 }
 
 function getTaskBoards() {
