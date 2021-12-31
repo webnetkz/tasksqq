@@ -16,9 +16,11 @@ function getTaskBoards() {
     taskBoards = JSON.parse(taskBoards);
 
     let ulTaskBoards = document.querySelector('menu > div > ul');
-    for(board in taskBoards) {
+    for(let i = 0; i < taskBoards.length; i++) {
         let tmp = document.createElement('li');
         tmp.classList.add('board');
+        tmp.innerText = taskBoards[i];
+
         ulTaskBoards.appendChild(tmp);
         ulTaskBoards.innerHTML += `<li class="board" id="createTaskBoard">+ Добавить список</li>`;
     }
