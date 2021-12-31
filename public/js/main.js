@@ -3,6 +3,5 @@ import { initError, showError } from './moduls/error.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initError();
-    showError('123');
 });
 
