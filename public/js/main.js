@@ -1,9 +1,8 @@
 "use strict";
-import { createError, showError, closeError } from './moduls/error.js';
+import { initError, showError } from './moduls/error.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    createError();
+    initError();
     showError('123');
-    closeError();
 });
 
