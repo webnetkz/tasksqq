@@ -34,14 +34,29 @@ html, body {
   display: flex;
   align-items: center;
   padding-left: 10px;
-  border-bottom: 0.5px solid rgba(200, 200, 200, 0.1);
 }
 menu > div {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   overflow-x: auto;
+  border-bottom: 0.5px solid rgba(200, 200, 200, 0.1);
+  width: 100%;
 }
 menu > div > ul {
   display: flex;
+  padding-bottom: 5px;
+}
+.board {
+  padding: 5px 20px;
+  margin: 5px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  white-space: nowrap; 
+
+}
+.activeBoard {
+  background-color: var(--mainColor);
+  border-radius: 3px;
 }
