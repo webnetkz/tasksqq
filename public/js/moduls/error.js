@@ -55,7 +55,6 @@ function createStylesError() {
 function createError() {
     let errorBlock = document.createElement('div');
     errorBlock.classList.add('error');
-    errorBlock.setAttribute('onclick', 'closeError()');
     document.body.appendChild(errorBlock);
 }
 function closeError() {
