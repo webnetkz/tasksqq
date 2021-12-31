@@ -1,3 +1,42 @@
+.error {
+  display: none;
+  box-sizing: border-box;
+  position: fixed;
+  top: 10px;
+  margin: 20px;
+  padding: 15px 30px;
+  border-radius: 4px;
+  background: repeating-linear-gradient(45deg,#df543b,#df543b 10px,#e05c45 10px,#e05c45 20px);
+  width: calc(100vw - 40px);
+  font-weight: 600;
+  color:#333;
+  text-align: center;
+  animation: showError 0.4s linear;
+  z-index: 99999;
+  box-shadow: 0 0 10px rgb(42, 39, 39);
+}
+@keyframes showError {
+  from {
+      top: -200px;
+  }
+  to {
+      top: 10px;
+  }
+}
+.errorAnim {
+  animation: errorAnimation 300ms infinite;
+}
+@keyframes errorAnimation {
+  from {
+      box-shadow: 0 0 0px black;
+  }
+  to {
+      box-shadow: 0 0 30px black;
+  }
+}
+@media only screen and (max-width: 1000px) {
+
+}
 :root {
   --whiteColor: rgb(253, 253, 253);
   --grayColor: rgb(230, 230, 230);

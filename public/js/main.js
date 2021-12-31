@@ -1,7 +1,8 @@
 "use strict";
-// import { f } from './moduls/fetch.js';
+import { createError, showError, closeError } from './moduls/error.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-
+    createError();
+    showError('123');
 });
 
