@@ -37,7 +37,7 @@ function createStylesError() {
         }
     }
     .errorAnim {
-        animation: errorAnimation 300ms infinite;
+        animation: errorAnimation 1s infinite;
     }
     @keyframes errorAnimation {
         from {
