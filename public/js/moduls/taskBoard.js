@@ -51,6 +51,9 @@ export function changeActiveBoard(elem) {
         settings.active_task_board = elem.innerText;
         settings = JSON.stringify(settings);
         localStorage.setItem('settings', settings);
+
+        // Заменем заголовок
+        document.querySelector('.headerTop h2').innerText = elem.innerText;
     }
 }
 
