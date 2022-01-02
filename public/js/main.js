@@ -15,8 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    showModal('msg');
-    document.querySelector('.modalClose').addEventListener('click', () => { closeModal(); });
     createBoard();
 });
 

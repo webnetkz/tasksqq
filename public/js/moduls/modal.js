@@ -111,6 +111,8 @@ export function showModal(msg, newList) {
     modalContent.appendChild(modalClose); // Само модальное окно
     modalBlock.appendChild(modalContent); // Контент в модальное окно
     document.body.appendChild(modalBlock); // Отображаем модальное окно
+
+    document.querySelector('.modalClose').addEventListener('click', () => { closeModal(); }); // запускаем возможность закрыть модальное окно
 }
 
 export function closeModal() {

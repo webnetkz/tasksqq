@@ -95,3 +95,83 @@ footer {
   cursor: pointer;
   transform: scale(1.1);
 }
+
+.signinBlock {
+  position: relative;
+  transition-duration: 500ms;
+}
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.form > form {
+  padding: 15px 30px;
+  border: 1px solid rgba(137,180,248, 0.5);
+  border-radius: 4px;
+  background-color: rgb(32,33,37);
+  position: relative;
+  z-index: 12;
+}
+.form > form:hover {
+  padding: 35px 40px;
+}
+.inp {
+  border: 0 solid rgba(0, 0, 0, 0);
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: rgb(76, 76, 78);
+  color: rgb(240, 240, 240);
+  outline: none;
+  font-size: 1.1rem;
+  display: block;
+  margin: 10px;
+  width: calc(100% - 20px);
+  box-sizing: border-box;
+}
+.inp:focus {
+  transform: scale(1.1);
+}
+.sign {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.btn {
+  border: none;
+  background: var(--mainColor);
+  color: var(--mainBg);
+  font-weight: 700;
+  padding: 5px;
+  border-radius: 3px;
+}
+.btn:hover {
+  cursor: pointer;
+  box-shadow: 0 0 5px var(--mainBg);
+  cursor: pointer;
+}
+.radio {
+  border: 2px solid rgb(179,179,179);
+  min-width: 20px;
+  max-width: 20px;
+  min-height: 20px;
+  max-height: 20px;
+  border-radius: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  transition-duration: 100ms;
+}
+.checkMark {
+  border: 3px solid rgb(27, 238, 19);
+  min-width: 10px;
+  max-width: 10px;
+  min-height: 20px;
+  max-height: 20px;
+  margin-left: 25px;
+  margin-right: 25px;
+  border-top: 0;
+  border-left: 0;
+  transform: rotateZ(35deg);
+  transition-duration: 100ms;
+}
