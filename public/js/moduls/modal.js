@@ -88,6 +88,18 @@ export function showModal(msg, newList) {
     let modalClose = document.createElement('span');
     modalClose.classList.add('modalClose');
     modalClose.innerText = 'x';
+    modalClose.addEventListener('click', () => {
+    let modalBlock = document.querySelector('.modalBlock');
+        modalBlock.querySelector('.modalClose').style.top = '-200px';
+        modalBlock.querySelector('.modalContent').style.opacity = '0';
+        modalBlock.style.background = 'rgba(0, 0, 0, 0)';
+        let modalStyles = document.querySelector('#modalStyles');
+
+        setTimeout(() => {
+            modalBlock.remove();
+            modalStyles.remove();
+        }, 500);
+    });
 
     modalContent.innerHTML = '<p>'+msg+'</p>'; // Помещаем сообщение в модальное окно
 
@@ -111,19 +123,4 @@ export function showModal(msg, newList) {
     modalContent.appendChild(modalClose); // Само модальное окно
     modalBlock.appendChild(modalContent); // Контент в модальное окно
     document.body.appendChild(modalBlock); // Отображаем модальное окно
-
-    document.querySelector('.modalClose').addEventListener('click', () => { closeModal(); }); // запускаем возможность закрыть модальное окно
-}
-
-export function closeModal() {
-    let modalBlock = document.querySelector('.modalBlock');
-    modalBlock.querySelector('.modalClose').style.top = '-200px';
-    modalBlock.querySelector('.modalContent').style.opacity = '0';
-    modalBlock.style.background = 'rgba(0, 0, 0, 0)';
-    let modalStyles = document.querySelector('#modalStyles');
-
-    setTimeout(() => {
-        modalBlock.remove();
-        modalStyles.remove();
-    }, 500);
 }

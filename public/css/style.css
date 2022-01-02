@@ -95,6 +95,12 @@ footer {
   cursor: pointer;
   transform: scale(1.1);
 }
+footer > span > img {
+  height: 30px;
+  position: fixed;
+  left: calc(100vw - 40px - 15vw);
+  margin-top: 10px;
+}
 
 .signinBlock {
   position: relative;
@@ -126,9 +132,10 @@ footer {
   outline: none;
   font-size: 1.1rem;
   display: block;
-  margin: 10px;
-  width: calc(100% - 20px);
+  margin: 20px;
+  width: calc(100% - 40px);
   box-sizing: border-box;
+  transition-duration: 300ms;
 }
 .inp:focus {
   transform: scale(1.1);
@@ -141,10 +148,13 @@ footer {
 .btn {
   border: none;
   background: var(--mainColor);
-  color: var(--mainBg);
+  color: var(--whiteColor);
   font-weight: 700;
   padding: 5px;
   border-radius: 3px;
+  font-size: 1.2rem;
+  margin-left: 20px;
+  margin-bottom: 10px;
 }
 .btn:hover {
   cursor: pointer;

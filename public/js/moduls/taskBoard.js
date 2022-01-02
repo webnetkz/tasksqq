@@ -1,5 +1,5 @@
 import { showError } from "./error.js";
-import { showModal, closeModal } from "./modal.js";
+import { showModal } from "./modal.js";
 
 export function initTaskBoard() {
     initTaskBoardMenu();
@@ -8,7 +8,7 @@ export function initTaskBoard() {
 export async function createBoard() {
     document.querySelector('#createTaskBoard').addEventListener('click', () => {
         
-        showModal(`Введите имя нового списка...<br><input type="text" class="inp"
+        showModal(`<input type="text" class="inp" placeholder="Введите имя нового списка..."
             onchange="localStorage.setItem('tmp', this.value);
             let task_boards = localStorage.getItem('task_boards');
             task_boards = JSON.parse(task_boards);
@@ -43,36 +43,9 @@ export async function createBoard() {
             let modalStyles = document.querySelector('#modalStyles');
 
             setTimeout(() => {
-
-                let activeTaskBoard = localStorage.getItem('settings');
-                activeTaskBoard = JSON.parse(activeTaskBoard);
-                activeTaskBoard = activeTaskBoard.active_task_board;
-
-                let task_boards = localStorage.getItem('task_boards');
-                task_boards = JSON.parse(task_boards);
-                let ulTaskBoards = document.querySelector('menu > div > ul');
-                ulTaskBoards.innerHTML = '';
-
-                for(let board in task_boards) {
-                    let boardElement = document.createElement('li');
-                    boardElement.classList.add('board');
-                    boardElement.innerText = task_boards[board];
-
-                    if(task_boards[board] == activeTaskBoard) {
-                        boardElement.classList.add('activeBoard');
-                    }
-
-                    ulTaskBoards.appendChild(boardElement);
-                }
-
-                let addBoard = document.createElement('li');
-                addBoard.classList.add('board');
-                addBoard.id = 'createTaskBoard';
-                addBoard.innerText = '+ Добавить список';
-                ulTaskBoards.appendChild(addBoard);
-
                 modalBlock.remove();
                 modalStyles.remove();
+                window.location.reload();
             }, 500);
             ">`);       
         });
@@ -120,3 +93,54 @@ function initTaskBoardMenu() {
     ulTaskBoards.innerHTML += `<li class="board" id="createTaskBoard">+ Добавить список</li>`;
 }
 
+export function deleteActiveBoard() {
+    let settings = localStorage.getItem('settings');
+    settings = JSON.parse(settings);
+    let activeTaskBoard = settings.active_task_board;
+
+    let task_boards = localStorage.getItem('task_boards');
+    task_boards = JSON.parse(task_boards);
+
+    for(let board in task_boards) {
+        if(task_boards[board] == activeTaskBoard) {
+            delete task_boards[board];
+        }
+    }
+
+    settings.active_task_board = task_boards[0];
+    settings = JSON.stringify(settings);
+    localStorage.setItem('settings', settings);
+
+    task_boards = JSON.stringify(task_boards);
+    localStorage.setItem('task_boards', task_boards);
+
+    window.location.reload();
+}
+
+export function renameActiveBoard() {
+    let settings = localStorage.getItem('settings');
+    settings = JSON.parse(settings);
+    let activeTaskBoard = settings.active_task_board;
+    
+    showModal(`
+        <p style="text-aling: center;">Переименовать список</p>
+        <input type="text" class="inp" placeholder="${activeTaskBoard}" onchange="
+        let task_boards = localStorage.getItem('task_boards');
+        task_boards = JSON.parse(task_boards);
+    
+        for(let board in task_boards) {
+            if(task_boards[board] == ${activeTaskBoard}) {
+                task_boards[board] = this.value;
+            }
+        }
+    
+        settings = JSON.stringify(settings);
+        localStorage.setItem('settings', settings);
+    
+        task_boards = JSON.stringify(task_boards);
+        localStorage.setItem('task_boards', task_boards);
+    
+        window.location.reload();
+        ">
+    `);
+}
