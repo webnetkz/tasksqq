@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        let openRequest = indexedDB.open("store", 1);
+
+        openRequest.onupgradeneeded = function() {
+            // срабатывает, если на клиенте нет базы данных
+            // ...выполнить инициализацию...
+            // версия существующей базы данных меньше 2 (или база данных не существует)
+            let db = openRequest.result;
+            switch(db.version) { // существующая (старая) версия базы данных
+                case 0:
+                    // версия 0 означает, что на клиенте нет базы данных
+                    // выполнить инициализацию
+                    db.createObjectStore('books', {keyPath: 'id'});
+                case 1:
+                    // на клиенте версия базы данных 1
+                    // обновить
+            }
+        };
+
+        openRequest.onerror = function() {
+            console.error("Error", openRequest.error);
+        };
+
+        openRequest.onsuccess = function() {
+            let db = openRequest.result;
+
+            db.onversionchange = function() {
+                db.close();
+                alert("База данных устарела, пожалуста, перезагрузите страницу.")
+            };
+
+            // ...база данных доступна как объект db...
+        };
+
+        openRequest.onblocked = function() {
+            // есть другое соединение к той же базе
+            // и оно не было закрыто после срабатывания на нём db.onversionchange
+
+        };
+
+    </script>
+</body>
+</html>

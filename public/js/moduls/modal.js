@@ -3,7 +3,7 @@
     v1.1
 */
 // Функция отображения модального окна
-export function showModal(msg, newList) {
+export function showModal(msg, close=true) {
     let modalBlock = document.createElement('div'); // Создаем сам блок
     modalBlock.classList.add('modalBlock'); // Добавляем класс модального окна
     
@@ -27,7 +27,6 @@ export function showModal(msg, newList) {
             background: #333;
             border-radius: 5px;
             min-widht: 100%;
-            min-height: 150px;
             padding: 30px 8px;
             color: rgb(163, 163, 163);
             transition-duration: 800ms;
@@ -103,24 +102,20 @@ export function showModal(msg, newList) {
 
     modalContent.innerHTML = '<p>'+msg+'</p>'; // Помещаем сообщение в модальное окно
 
-    // Если сообщение есть отображаем
-    if(newList) {
-        modalContent.innerHTML += `
-        <br>
-        <input type="text" class="inp" placeholder="Create new task list" required autocomplete="off">
-        <div class="sign">
-            <a href="#" class="neonBtn" onclick="create_task(this);">
-                <span class="neonBtnL neonBtnL-t"></span>
-                <span class="neonBtnL neonBtnL-r"></span>
-                <span class="neonBtnL neonBtnL-b"></span>
-                <span class="neonBtnL neonBtnL-l"></span>
-                Create
-            </a>
-        </div>`;
+    document.head.appendChild(modalStyles); // Добавляет стили модального окна
+    if(close) {
+        modalContent.appendChild(modalClose); // Добавляет кнопку закрытия
     }
-
-    document.head.appendChild(modalStyles); // Добавляем стили модального окна
-    modalContent.appendChild(modalClose); // Само модальное окно
-    modalBlock.appendChild(modalContent); // Контент в модальное окно
+    modalBlock.appendChild(modalContent); // Добавляет контент в модальное окно
     document.body.appendChild(modalBlock); // Отображаем модальное окно
+}
+
+export function closeModal() {
+    let modalClose = document.querySelector('.modalClose');
+    let modalStyles = document.querySelector('#modalStyles');
+
+    modalClose.click();
+    setTimeout(() => {
+        modalStyles.remove();
+    }, 500);
 }
